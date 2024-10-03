@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="throttle">节流</button>
+</body>
+<script>
+    // function throttle(func, wait) { // 简易版节流
+    //     let timeId = null
+    //     return () => { // 返回一个函数代表只有触发了点击事件才会执行这个函数
+    //         if(timeId !== null) {
+    //             return
+    //         }
+    //         timeId = setTimeout(() => {
+    //             func.apply(this, arguments)
+    //             timeId = null
+    //         }, wait)
+    //     }
+    // }
+
+    function throttle(func, wait) {
+        let start = new Date()
+        return function() {
+            let now = new Date()
+            if(now - start >= wait) {
+                start = now
+                return func.apply(this, arguments)
+            }
+        }
+    }
+
+    function fn1(name) {
+        console.log(`${name}执行了节流函数`)
+    }
+    document.querySelector('#throttle').addEventListener('click', throttle(() => fn1('zgj'), 1000))
+</script>
+</html>

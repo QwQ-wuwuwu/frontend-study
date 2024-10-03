@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="contain">
+
+    </div>
+    <div class="san"></div>
+</body>
+<style scoped>
+    .contain {
+        border: 1px solid black;
+        background-repeat: 1;
+    }
+    .san {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 50px solid blue;
+    }
+</style>
+<script>
+    document.cookie.cookieName = ''
+    var name = 'zgj'
+    const obj = {
+        name: 'ldb',
+        getName: function() {
+            console.log(this.name)
+        }
+    }
+    obj.getName()
+</script>
+</html>

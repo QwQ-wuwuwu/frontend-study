@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class EventEmitter {
+      constructor() {
+        this.cache = {};
+      }
+      on(name, callback) {
+        if (this.cache[name]) {
+          this.cache[name].push(callback);
+        } else {
+          this.cache[name] = [callback];
+        }
+      }
+      off(name, callback) {
+        let tasks = this.cache[name];
+        if (tasks) {
+          this.cache[name] = tasks.filter(f => f !== callback)
+        }
+      }
+      emit(name, once = false, ...args) {
+        if (this.cache[name]) {
+          let tasks = this.cache[name];
+          for (let fn of tasks) {
+            fn(...args);
+          }
+        }
+        if (once) {
+          delete this.cache[name];
+        }
+      }
+    }
+
+    const eventQueue = new EventEmitter();
+
+    function fn1(name) {
+        console.log(`我的名字是${name}`)
+    }
+    eventQueue.on('click', fn1)
+
+    eventQueue.emit("click", false, "ldb", 20);
+
+    eventQueue.off('click', fn1)
+    console.log(eventQueue);
+    eventQueue.emit('click', true, fn1)
+    console.log(eventQueue);
+  </script>
+</html>

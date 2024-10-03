@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="debounce">防抖</button>
+    <input type="text">
+  </body>
+  <script>
+    function debounce(func, wait) {
+      let timeId = null;
+      return () => {
+        clearTimeout(timeId);
+        timeId = setTimeout(() => {
+          func.apply(this, arguments);
+        }, wait);
+      };
+    }
+    function fn1(value) {
+      console.log(value);
+    }
+    document.querySelector("#debounce").addEventListener('click', debounce(() => fn1('ldb'), 1000))
+    document.querySelector('input').addEventListener('input', (event) => {
+      console.log(`input事件触发的${event.target.value}`);
+      () => debounce(() => fn1(event.target.value) , 1000)
+    })
+    document.querySelector('#debounce').addEventListener('click', (event) => {
+      console.log('子元素被点击了')
+      event.stopPropagation()
+    })
+  </script>
+</html>

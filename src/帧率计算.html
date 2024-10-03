@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo {
+            height: 10000px;
+            width: 200px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body style="margin: 0;">
+    <div class="demo"></div>
+
+    <script>
+        let lastTime = new Date(), frame = 0
+        const animation = () => {
+            const demo = document.querySelector('.demo')
+            const currentHeight = demo.clientHeight
+            const currentTime = new Date()
+            if(currentTime - lastTime >= 1000) {
+                const fps = (frame / ((currentTime - lastTime) / 1000))
+                frame = 0
+                lastTime = currentTime
+                console.log(fps)
+            }
+            if(currentHeight > 0) {
+                demo.style.height = (currentHeight - 10) + 'px'
+                frame++
+                requestAnimationFrame(animation)
+            }
+        }
+        requestAnimationFrame(animation)
+    </script>
+    
+</body>
+</html>

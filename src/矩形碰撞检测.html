@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+<script>
+    function drag(element) {
+        let curX = 0, curY = 0, newX = 0, newY = 0
+        element.onmousedown = dragMouseDown
+        function dragMouseDown(e) {
+            e.preventDefault();
+            curX = e.clientX
+            curY = e.clientY
+            document.onmousemove = mouseMove
+            document.onmouseup = remove
+        }
+        function mouseMove(e) {
+            e.preventDefault()
+            newX = curX - e.clientX
+            newY = curY - e.clientY
+            curX = e.clientX
+            curY = e.clientY
+            element.style.top = (element.offsetTop - newY) + 'px'
+            element.style.left = (element.offsetLeft - newX) + 'px'
+        }
+        function remove(e) {
+            document.onmousedown = null
+            document.onmousemove = null
+        }
+    }
+
+    const ele1 = document.querySelector('#box1')
+    const ele2 = document.querySelector('#box2')
+    drag(ele1)
+    drag(ele2)
+</script>
+<style scoped>
+    #box1 {
+        height: 200px;
+        width: 200px;
+        background-color: aquamarine;
+        position: absolute;
+        top: 20px;
+        left: 100px;
+        z-index: 1;
+    }
+    #box2 {
+        height: 200px;
+        width: 200px;
+        background-color: rgb(241, 65, 65);
+        position: absolute;
+        top: 100px;
+        left: 500px;
+    }
+</style>
+</html>
